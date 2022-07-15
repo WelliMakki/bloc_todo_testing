@@ -1,3 +1,4 @@
+import 'package:bloc_reminder/bloc/blog_bloc.dart';
 import 'package:bloc_reminder/model/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +16,12 @@ class AddTodoScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: BlocListener<TodoBloc, TodoState>(
+      body: BlocListener<BlogBloc, BlogState>(
         listener: (context, state) {
           // TODO: implement listener
-          if (state is TodoLoaded) {
+          if (state is BlogLoaded) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Todo Created')));
+                .showSnackBar(const SnackBar(content: Text('Blog Created')));
             Navigator.pop(context);
           }
         },
@@ -31,26 +32,19 @@ class AddTodoScreen extends StatelessWidget {
             _inputFields('description', desc),
             ElevatedButton(
                 onPressed: () {
-                  // Map data = {
-                  //   'id': id.text,
-                  //   'task': task.text,
-                  //   'description': desc.text,
-                  //   'isCanceled': false,
-                  //   'isCompleted': false,
-                  // };
+                  Map<String, dynamic> blog = {
+                    'data': {
+                      'title': task.text,
+                      'body': desc.text,
+                    }
+                  };
                   // var todo = Todo.fromJson(data);
-                  var todo = Todo(
-                      id: id.value.text,
-                      task: task.value.text,
-                      description: desc.value.text,
-                      isCompleted: false,
-                      isCanceled: false);
-                  print(todo);
-                  context.read<TodoBloc>().add(AddTodos(todo: todo));
+
+                  context.read<BlogBloc>().add(AddBlogs(blog));
                   // context.read<TodoBloc>().add(AddTodos(todo: todo));
                 },
                 child: const Center(
-                  child: Text('Add TODO'),
+                  child: Text('publish'),
                 ))
           ],
         ),

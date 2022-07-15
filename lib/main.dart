@@ -1,4 +1,6 @@
+import 'package:bloc_reminder/bloc/blog_bloc.dart';
 import 'package:bloc_reminder/bloc/todo_bloc.dart';
+import 'package:bloc_reminder/views/blog_view.dart';
 import 'package:bloc_reminder/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => TodoBloc()..add(const LoadTodos())),
+        BlocProvider(create: (context) => BlogBloc()..add(GetBlogs())),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
             // is not restarted.
             primarySwatch: Colors.blue,
           ),
-          home: const HomeScreen()),
+          home: const BlogView()),
     );
   }
 }
